@@ -1,0 +1,9 @@
+python manage.py createsuperuser
+email@mail.com
+caio
+123
+
+.\.venv\Scripts\activate
+python manage.py makemigrations;python manage.py makemigrations core
+python manage.py migrate;python manage.py migrate core
+python manage.py runserver

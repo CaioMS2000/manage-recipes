@@ -1,0 +1,10 @@
+{% extends "base.html" %} {% block content %}
+<div class="w-screen p-4 flex flex-col items-center">
+	<h1 class='font-bold'>Contrato</h1>
+	<h2 class='font-bold'>{{object}}</h2>
+	<p class="font-bold mb-5">Contrato criado em: {{data_de_criacao}}</p>
+	<a class='font-bold rounded-md border-gray-400 border-2 p-1 mb-5 hover:cursor-pointer' href="/contrato/editar/{{object.id}}">Editar</a>
+	<a class='font-bold rounded-md border-gray-400 border-2 p-1 hover:cursor-pointer' href="/contrato/remover/{{object.id}}">Remover</a>
+</div>
+
+{% endblock %}

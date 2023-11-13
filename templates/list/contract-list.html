@@ -1,0 +1,20 @@
+{% extends "base.html" %} {% block content %}
+<div class="w-screen p-0">
+	<div class="w-screen p-4 mb-5">
+		<h1 class="font-bold text-2xl mb-5">Contratos</h1>
+		<div class="flex gap-6 flex-wrap">
+			{% for contrato in object_list %}
+			<div class="rounded p-2 text-white bg-gray-500">
+				<a href="contrato/{{contrato.id}}">
+					<p>{{ contrato }}</p>
+				</a>
+			</div>
+			{% empty %}
+			<p>Sem contratos registrados</p>
+			{% endfor %}
+		</div>
+	</div>
+	<a class='font-bold rounded-md border-gray-400 border-2 p-1' href="contrato/criar">Criar novo</a>
+</div>
+
+{% endblock %}

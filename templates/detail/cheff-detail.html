@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block content %}
+<div class="w-screen p-4 flex flex-col items-center">
+	<h1 class='font-bold'>{{object.name}}</h1>
+	{% if object.chef_name %}
+	<h2>{{object.chef_name}}</h2>
+	{% else %}
+	<h2>--</h2>
+	{% endif %}
+	<p>Email: {{object.email}}</p>
+	<p>CPF: {{object.cpf}}</p>
+	<p class='mb-5'>Salário: R${{object.salary}}</p>
+	<a class='font-bold rounded-md border-gray-400 border-2 p-1 mb-5 hover:cursor-pointer' href="/cozinheiro/editar/{{object.cpf}}">Editar</a>
+	<a class='font-bold rounded-md border-gray-400 border-2 p-1 mb-5 hover:cursor-pointer' href="/cozinheiro/remover/{{object.id}}">Deletar</a>
+	{% if recipes %}
+	<p class="font-bold mb-5">Receitas criadas</p>
+	<div class="flex gap-4 flex-wrap">
+		{% for recipe in recipes %}
+		<a href="/receita/{{recipe.code}}">
+			<div class="rounded p-2 text-white bg-gray-500">{{recipe.name}}</div>
+		</a>
+		{% empty %}
+		<p>Este cozinheiro não possui receitas</p>
+		{% endfor %}
+	</div>
+	{% endif %}
+</div>
+
+{% endblock %}

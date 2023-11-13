@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% block content %}
+<div class="w-screen p-4 flex flex-col items-center">
+	<h1 class='font-bold mb-5'>{{object.name}}</h1>
+	<p class="font-bold mb-5">Criado em: {{data_de_criacao}}</p>
+	<p class="font-bold mb-5">Criado por: <span><a class='underline underline-offset-1' href="/cozinheiro/{{object.chef.cpf}}">{{object.chef.name}}</a></span></p>
+	<p class="font-bold mb-5">Quantidade de pessoas: {{object.serving_amount}}</p>
+	{% if object.description %}
+	<p class="font-bold mb-5">{{object.description}}</p>
+	{% endif %}
+	<p class="font-bold mb-5">Categoria: {{object.category}}</p>
+	<a class='font-bold rounded-md border-gray-400 border-2 p-1 mb-5 hover:cursor-pointer' href="/receita/editar/{{object.code}}">Editar</a>
+	<a class='font-bold rounded-md border-gray-400 border-2 p-1 mb-5 hover:cursor-pointer' href="/receita/remover/{{object.code}}">Excluir</a>
+	{% if porcoes %}
+	<p class="font-bold mb-5">Ingredientes</p>
+	{% else %}
+	<p class="text-red-500 font-bold mb-5">Ingredientes da receita ainda não definidos</p>
+	{% endif %}
+	<div class="flex gap-4 flex-wrap">
+		{% for porcao in porcoes %}
+		
+		<div class='font-bold rounded-md border-gray-400 border-2 p-1 mb-5 hover:cursor-pointer'>
+			<p class="font-bold">{{porcao.ingredient.name}}</p>
+			{% if porcao.ingredient_amount %}
+			<p><span class="font-bold">Quantidade: </span> {{porcao.ingredient_amount}}</p>
+			{% endif %}
+			{% if porcao.measurement %}
+			<p><span class="font-bold">Medida: </span> {{porcao.measurement}}</p>
+			{% endif %}
+		</div>
+		{% endfor %}
+	</div>
+</div>
+
+{% endblock %}

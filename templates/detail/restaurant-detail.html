@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% block content %}
+<div class="w-screen p-4 flex flex-col items-center">
+	<h1 class='font-bold mb-5'>{{object.name}}</h1>
+	<a class='font-bold mb-5 rounded-md border-gray-400 border-2 p-1 hover:cursor-pointer' href="/restaurante/editar/{{object.code}}">Editar</a>
+	<a class='font-bold mb-5 rounded-md border-gray-400 border-2 p-1 hover:cursor-pointer' href="/restaurante/remover/{{object.code}}">Remover</a>
+	<div class="grid grid-cols-3 w-full gap-3">
+		<div class='flex flex-col items-center'>
+			{% if cozinheiros %}
+			<p class="font-bold mb-5">Cozinheiros</p>
+			{% for cozinheiro in cozinheiros %}
+			<a class='font-bold mb-5 rounded-md border-gray-400 border-2 p-1 w-fit hover:cursor-pointer' href="/cozinheiro/{{cozinheiro.cpf}}">{{cozinheiro.name}}</a>
+			{% endfor %}
+			{% else %}
+			<p class="font-bold">Sem cozinheiros</p>
+			{% endif %}
+		</div>
+		<div class='flex flex-col items-center'>
+			{% if degustadores %}
+			<p class="font-bold mb-5">Degustadores</p>
+			{% for degustador in degustadores %}
+			<a class='font-bold mb-5 rounded-md border-gray-400 border-2 p-1 w-fit hover:cursor-pointer' href="/degustador/{{degustador.cpf}}">{{degustador.name}}</a>
+			{% endfor %}
+			{% else %}
+			<p class="font-bold">Sem degustadores</p>
+			{% endif %}
+		</div>
+		<div class='flex flex-col items-center'>
+			{% if editores %}
+			<p class="font-bold mb-5">Editores</p>
+			{% for editor in editores %}
+			<a class='font-bold mb-5 rounded-md border-gray-400 border-2 p-1 w-fit hover:cursor-pointer' href="/editor/{{editor.cpf}}">{{editor.name}}</a>
+			{% endfor %}
+			{% else %}
+			<p class="font-bold">Sem editores</p>
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+{% endblock %}

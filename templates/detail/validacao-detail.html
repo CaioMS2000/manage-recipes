@@ -1,0 +1,9 @@
+{% extends "base.html" %} {% block content %}
+<div class="w-screen p-4 flex flex-col items-center">
+	<h1 class='font-bold'>{{object}}</h1>
+	<p class='mb-5'>{{object.recipe.name}}: Nota {{object.grade}}</p>
+	<a class='font-bold rounded-md border-gray-400 border-2 p-1 mb-5 hover:cursor-pointer' href="/validacao/editar/{{object.id}}">Editar</a>
+	<a class='font-bold rounded-md border-gray-400 border-2 p-1 mb-5 hover:cursor-pointer' href="/validacao/remover/{{object.id}}">Remover</a>
+</div>
+
+{% endblock %}

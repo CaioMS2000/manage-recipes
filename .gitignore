@@ -1,0 +1,8 @@
+.env
+.venv
+.vscode
+*migrations*
+**migrations*
+*pycache*
+**pycache*
+*~lock*

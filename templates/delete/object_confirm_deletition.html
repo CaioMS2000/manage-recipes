@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block content %}
+<div class="w-screen p-4 flex flex-col items-center">
+	<h1 class='font-bold'>{% firstof object.title object.name object %}</h1>
+  <h2 class='font-bold'>Tem certeza que quer excluir?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <input class='font-bold rounded-md border-gray-400 border-2 p-1 hover:cursor-pointer' type="submit" value="Excluir">
+      </form>
+</div>
+
+{% endblock %}

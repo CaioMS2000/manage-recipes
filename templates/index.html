@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block content %}
+<div class="w-screen p-4">
+    <h1 class='font-bold text-2xl mb-5'>Modelos</h1>
+    <div class="flex gap-6 flex-wrap">
+        {%for m in models%}
+        <div class="rounded w-fit bg-gray-500 p-3">
+            <a href="/{{m.1|lower}}">
+                <p class='text-lg text-white'>{{m.0|capfirst}}</p>
+            </a>
+        </div>
+        {%endfor%}
+    </div>
+</div>
+<script>
+    const link = document.getElementById('pagina-inicial-link')
+
+    if(link !== null) link.remove();
+</script>
+{% comment %}
+<ul>
+	{% for nome in lista_de_nomes %}
+	<li>{{ nome }}</li>
+	{% endfor %}
+</ul>
+{% endcomment %} {% endblock %}

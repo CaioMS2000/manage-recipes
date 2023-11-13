@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block content %}
+<div class="w-screen p-4 flex flex-col gap-3 items-center">
+	<h1 class="font-bold">{{object.title}}</h1>
+	<p class="font-bold">Código: {{object.isbn_code}}</p>
+	<p class="font-bold">Editor: {{editor}}</p>
+	<a class='font-bold rounded-md border-gray-400 border-2 p-1 hover:cursor-pointer' href="/livro/editar/{{object.isbn_code}}">Editar</a>
+	<a class='font-bold rounded-md border-gray-400 border-2 p-1 hover:cursor-pointer' href="/livro/remover/{{object.isbn_code}}">Excluir</a>
+	{% if recipes %}
+	<p class='font-bold'>Receitas:</p>
+	<div class="flex gap-4 flex-wrap">
+		{% for recipe in recipes %}
+		<div class="rounded p-2 text-white bg-gray-500">
+			<a href="/receita/{{recipe.code}}">
+				<p>{{ recipe.name }}</p>
+			</a>
+		</div>
+		{% empty %}
+		<p>Sem receitas nesse livro</p>
+		{% endfor %}
+	</div>
+	{% endif %}
+</div>
+{% endblock %}

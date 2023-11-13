@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block content %}
+<div class="w-screen p-4 flex flex-col items-center">
+	<h1 class='font-bold'>{{object.name}}</h1>
+	{% if object.description %}
+	<p class="font-bold mb-5">Descrição: {{object.description}}</p>
+	{% endif %}
+	<a class='font-bold rounded-md border-gray-400 border-2 p-1 mb-5 hover:cursor-pointer' href="/ingrediente/editar/{{object.code}}">Editar</a>
+	<a class='font-bold rounded-md border-gray-400 border-2 p-1 hover:cursor-pointer' href="/ingrediente/remover/{{object.code}}">Excluir</a>
+</div>
+
+{% endblock %}
