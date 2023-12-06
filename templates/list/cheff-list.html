@@ -15,6 +15,37 @@
 		</div>
 	</div>
 	<a class='font-bold rounded-md border-gray-400 border-2 p-1' href="cozinheiro/criar">Criar novo</a>
+	<div class="flex flex-wrap pl-3 pt-5 font-bold gap-3">
+		{% if top_cheffs %}
+		<h3 class="w-screen text-lg">Top 5 cheffs</h3>
+		{% endif %}
+		{% for cheff in top_cheffs %}
+		<div class="rounded  border-gray-500 border-2">
+			<div class="border-gray-500 border-b-2 pl-2">
+				<p>{{ cheff.name }}</p>
+			</div>
+			<div class="p-2">
+				<ul>
+					<li>						
+					{% if cheff.chef_name %}
+					{{cheff.chef_name}}
+					{% else %}
+					--
+					{% endif %}
+					</li>
+					<li>
+						CPF: {{cheff.cpf}}
+					</li>
+					<li>
+						Quantidade de receitas: {{cheff.num_receitas}}
+					</li>
+				</ul>
+			</div>
+		</div>
+		{% empty %}
+		<p>Sem cozinheiros registrados</p>
+		{% endfor %}
+	</div>
 </div>
 
 {% endblock %}

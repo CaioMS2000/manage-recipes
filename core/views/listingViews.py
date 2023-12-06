@@ -1,5 +1,6 @@
 from typing import Any
 from django.shortcuts import render
+from django.db.models import Count
 from django.views.generic import TemplateView, ListView
 from django.apps import apps
 from ..models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Contrato, Porcao, Validacao
@@ -58,8 +59,17 @@ class CheffListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        
+        # Obtém os 5 cozinheiros com mais receitas
+        top_cozinheiros = Cozinheiro.objects.annotate(num_receitas=Count('receita')).order_by('num_receitas')[:5]
+        for cozinheiro in top_cozinheiros:
+            print(f"{cozinheiro.name} - {cozinheiro.num_receitas} receitas")
+        
+        context['top_cheffs'] = top_cozinheiros
+        
         cheffs = self.model.objects.all()
         context['cheffs'] = cheffs
+        
         
         return context
 
