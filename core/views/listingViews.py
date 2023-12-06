@@ -36,7 +36,13 @@ class CategoryListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        
+        # categorias_com_receitas = Categoria.objects.annotate(num_receitas=Count('receita'))
+
+        # context['categorias_com_receitas'] = categorias_com_receitas
+        
         categorias = self.model.objects.all()
+        categorias = self.model.objects.annotate(num_receitas=Count('receita'))
         context['categorias'] = categorias
         
         return context

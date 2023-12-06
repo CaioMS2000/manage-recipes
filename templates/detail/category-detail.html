@@ -1,11 +1,12 @@
 {% extends "base.html" %} {% block content %}
 <div class="w-screen p-4 flex flex-col items-center gap-3">
+	<p>Código: {{object.code}}</p>
 	<h1 class='font-bold'>{{object.name}}</h1>
 	<p>{{object.description}}</p>
 	<a class='font-bold rounded-md border-gray-400 border-2 p-1 hover:cursor-pointer' href="/categoria/editar/{{object.code}}">Editar</a>
 	<a class='font-bold rounded-md border-gray-400 border-2 p-1 hover:cursor-pointer' href="/categoria/remover/{{object.code}}">Excluir</a>
 	{% if recipes %}
-	<p class='font-bold'>Receitas:</p>
+	<p class='font-bold'>{{object.num_receitas}} Receitas:</p>
 	<div class="flex gap-4 flex-wrap">
 		{% for recipe in recipes %}
 		<div class="rounded p-2 text-white bg-gray-500">

@@ -1,5 +1,6 @@
 from django.views.generic import DetailView
 from django.apps import apps
+from django.db.models import Count
 from ..models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato, Validacao
 
 class CategoryDetailView(DetailView):
@@ -9,7 +10,7 @@ class CategoryDetailView(DetailView):
     def get_object(self, **kwargs):
         code = self.kwargs.get("code")
         
-        return self.model.objects.get(code= code)
+        return self.model.objects.annotate(num_receitas=Count('receita')).get(code= code)
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
