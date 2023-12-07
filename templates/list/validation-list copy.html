@@ -1,0 +1,30 @@
+{% extends "base.html" %} {% block content %}
+<div class="w-screen p-0">
+	<div class="w-screen p-4">
+		<h1 class="font-bold text-2xl mb-5">Avaliação</h1>
+		<div class="flex gap-6 flex-wrap mb-5">
+			{% for validacao in object_list %}
+			<div class="rounded p-2 text-white bg-gray-500">
+				<a href="/validacao/{{validacao.id}}">
+					<p>{{ validacao }}</p>
+				</a>
+			</div>
+			{% empty %}
+			<p>Sem porções registradas</p>
+			{% endfor %}
+		</div>
+	</div>
+	<a class='font-bold rounded-md border-gray-400 border-2 p-1' href="validacao/criar">Criar</a>
+
+	<div class="mt-10 pl-3">
+		<h3 class="font-bold text-lg">Filtrar pelos ingredientes</h3>
+        <form method="get" action="{% url 'validacao-list' %}">
+            {% for field in form %}
+            <div class="mb-5">{{field}}</div>
+            {% endfor %}
+            <button class="btn border-gray-400" type="submit">Filtrar</button>
+		</form>
+    </div>
+</div>
+
+{% endblock %}

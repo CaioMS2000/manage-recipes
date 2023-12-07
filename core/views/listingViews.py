@@ -4,6 +4,7 @@ from django.db.models import Count
 from django.views.generic import TemplateView, ListView
 from django.apps import apps
 from ..models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Contrato, Porcao, Validacao
+from ..forms import ReceitaFilterForm
 
 class Index(TemplateView):
     template_name='index.html'
@@ -157,4 +158,40 @@ class ValidationListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
+        context['form'] = ReceitaFilterForm(self.request.GET)
+        context['form_options'] = Ingrediente.objects.all()
+        
         return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        # Obter parâmetros de filtro do formulário
+        print(self.request.GET)
+        ingredientes = self.request.GET.getlist('ingrediente', '')
+        print('##')
+        print(ingredientes)
+        print('##')
+        
+
+        for objeto in queryset:
+            # recipe_id
+            for att in objeto.__dict__:
+                print(att)
+            
+        print('\n\n\n\n')
+        porcoes = Porcao.objects.all()
+        for objeto in porcoes:
+            for att in objeto.__dict__:
+                print(att)
+        
+        print('\n\n\n\n')
+        # for ingrediente in ingredientes:
+        #     porcoes = porcoes.exclude(ingredient_id= ingrediente)
+        if ingredientes:
+            porcoes = porcoes.filter(ingredient_id__in=ingredientes)
+        
+        print(porcoes)
+
+        return queryset
+    

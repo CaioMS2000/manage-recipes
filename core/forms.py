@@ -186,3 +186,8 @@ class CreateValidationForm(forms.ModelForm):
         if grade < 0 or grade > 5:
             raise forms.ValidationError("A nota deve estar entre 0 e 5.")
         return grade
+
+
+class ReceitaFilterForm(forms.Form):
+    # ingrediente = forms.ModelChoiceField(queryset=Ingrediente.objects.all(), empty_label='Ingredientes', required=False)
+    ingrediente = forms.ModelMultipleChoiceField(queryset=Ingrediente.objects.all(), required=False, help_text="Selecione Ingredientes")

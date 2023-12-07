@@ -15,6 +15,55 @@
 		</div>
 	</div>
 	<a class='font-bold rounded-md border-gray-400 border-2 p-1' href="validacao/criar">Criar</a>
+
+	<div class="mt-10 pl-3">
+		<h3 class="font-bold text-lg mb-3">Filtrar pelos ingredientes</h3>
+        <form method="get" action="{% url 'validacao-list' %}">
+			{% csrf_token %}
+            <div class="w-screen mb-3">
+				<button class="btn border-gray-400" type="submit">Filtrar</button>
+			</div>
+            <div class="w-screen mb-3 selected-ingredients flex flex-wrap gap-3">
+			</div>
+			<div class="w-screen">
+				<div class="h-fit w-fit border-gray-600 border-2 flex">
+					<select class="h-[1.5em] blur:h-[1.5em] focus:h-auto hover:h-auto bg-transparent" name="ingrediente" id="ingrediente" multiple>
+						<option class="bg-transparent" selected value="-1">Ingredientes</option>
+						{% for option in form_options %}
+						<option class="bg-transparent" value="{{option.id}}">{{option.name}}</option>
+						{% endfor %}
+					</select>
+					<i class="bi bi-chevron-down"></i>
+				</div>
+			</div>
+		</form>
+    </div>
 </div>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		history.replaceState(null, null, window.location.pathname);
+
+	  var selectElement = document.querySelector("select[multiple]");
+	  var selectedIngredientsDiv = document.querySelector(".selected-ingredients");
+
+	  selectElement.addEventListener("click", function () {
+		console.clear()
+		selectedIngredientsDiv.innerHTML=''
+		for (var i = 0; i < selectElement.options.length; i++) {
+			if (selectElement.options[i].selected) {
+			  //selectedOptions.push(selectElement.options[i].value);
+			  let novo = document.createElement("div");
+			  novo.textContent = selectElement.options[i].innerHTML
+			  novo.classList.add("border-gray-400", "border-2", "p-1")
+			  selectedIngredientsDiv.appendChild(novo)
+
+			  console.log(selectElement.options[i].value)
+			}
+		  }
+	  });
+
+	});
+</script>  
 
 {% endblock %}

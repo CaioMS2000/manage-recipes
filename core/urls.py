@@ -9,7 +9,7 @@ from .seed import seed
 seed()
 
 urlpatterns = [
-    path('', Index.as_view()),
+    path('', Index.as_view(), name= 'main'),
     
     path('categoria', CategoryListView.as_view(), name= 'category-list'),
     path('cozinheiro', CheffListView.as_view(), name= "cheff-list"),
