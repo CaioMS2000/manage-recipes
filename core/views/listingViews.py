@@ -166,32 +166,80 @@ class ValidationListView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
 
+        print(queryset)
         # Obter parâmetros de filtro do formulário
-        print(self.request.GET)
-        ingredientes = self.request.GET.getlist('ingrediente', '')
-        print('##')
-        print(ingredientes)
-        print('##')
+        ingredientes_validos = self.request.GET.getlist('ingrediente', '')
         
-
-        for objeto in queryset:
-            # recipe_id
-            for att in objeto.__dict__:
-                print(att)
+        if '-1' in ingredientes_validos:
+            ingredientes_validos.remove('-1')
             
-        print('\n\n\n\n')
-        porcoes = Porcao.objects.all()
-        for objeto in porcoes:
-            for att in objeto.__dict__:
-                print(att)
+        ingredientes_validos = [int(x) for x in ingredientes_validos]
+        print('##')
+        print(ingredientes_validos)
+        print('##')
         
-        print('\n\n\n\n')
-        # for ingrediente in ingredientes:
-        #     porcoes = porcoes.exclude(ingredient_id= ingrediente)
-        if ingredientes:
-            porcoes = porcoes.filter(ingredient_id__in=ingredientes)
-        
-        print(porcoes)
 
+        if not ingredientes_validos:
+            print('SEM FILTRAGEM')
+            return queryset
+        
+        print('\n\n')        
+        for objeto in queryset:
+            print('atual')
+            print(objeto)
+            print(objeto.id)
+            print('\n\n')
+            # cada validação
+            # for att in objeto.__dict__:
+            #     print(att)
+            
+            print('\n')
+            # receita da atual validação
+            receita = Receita.objects.get(id= objeto.recipe_id)
+            print(f'receita da validação {objeto.id}')
+            print(receita)
+            
+            print('\n')
+            # porções dessa receita
+            porcoes = Porcao.objects.filter(recipe_id= objeto.recipe_id)
+            print(f'porcoes')
+            print(porcoes)
+            
+            ingredientes = []
+            flag = True
+            for porcao in porcoes:
+                ingredientes.append(porcao.ingredient)
+            
+            print('\n')
+            # ingredientes da receita
+            print(f'ingredientes')
+            print(ingredientes)
+            
+            print('\n')
+            # ids dos ingredientes da receita
+            ingredientes_ids = [int(i.id) for i in ingredientes]
+            print(f'ingredientes - ids')
+            print(ingredientes_ids)
+            
+            print('\n')
+            for x in ingredientes_validos:
+                print(f'avaliando {x} em')
+                print(ingredientes_ids)
+                
+                if x  not in ingredientes_ids:
+                    print(f'{x} n esta em')
+                    print(ingredientes_ids)
+                    flag = False
+            
+            print('\n')        
+            print(f'flag: {flag}')
+            
+            if flag == False:
+                print(f'excluindo {objeto.id}')
+                print(objeto)
+                queryset = queryset.exclude(id= objeto.id)
+
+        print('\n\n')
+        print(queryset)
         return queryset
     

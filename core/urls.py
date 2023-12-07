@@ -6,7 +6,7 @@ from .views import CheffUpdateView, TasterUpdateView, EditorUpdateView, Category
 from .views import ChefDeleteView, TasterDeleteView, EditorDeleteView, CategoryDeleteView, IngredientDeleteView, RecipeDeleteView, RestaurantDeleteView, BookDeleteView, PorcaoDeleteView, ValidacaoDeleteView, ContractDeleteView
 from .seed import seed
 
-seed()
+# seed()
 
 urlpatterns = [
     path('', Index.as_view(), name= 'main'),
